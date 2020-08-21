@@ -1,0 +1,5 @@
+CREATE DATABASE IF NOT EXISTS tiny_store DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE tiny_store;
+
+-- DROP DATABASE IF EXISTS tiny_store

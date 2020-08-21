@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>小站</title>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='homepage.css') }}" rel="stylesheet">
+</head>
+
+<body>
+	<div class="header">
+	     <div class="container">
+	        <div class="row">
+	           <div class="col-md-2">
+	           		<div class="logo">
+	                 	 <h1>小站</h1>
+	              	</div>
+	           </div>
+	           <div class="col-md-8"></div>
+	           <div class="col-md-2"></div>		           
+	        </div>
+	     </div>
+	</div>
+
+	<div class="login">
+			<h1>账户</h1>
+			<div class="links">
+				<a href="{{ url_for('login') }}">登录</a>
+				<a href="{{ url_for('register') }}" class="active">注册</a>
+			</div>
+			<form action="{{ url_for('register') }}" method="post">
+				<label for="username">
+					<i class="fas fa-user"></i>
+				</label>
+				<input type="text" name="username" placeholder="用户名" id="username" required>
+				<label for="password">
+					<i class="fas fa-lock"></i>
+				</label>
+				<input type="password" name="password" placeholder="密码" id="password" required>
+				<label for="email">
+					<i class="fas fa-envelope"></i>
+				</label>
+				<input type="text" name="email" placeholder="邮箱" id="email" required>
+				<div class="msg">{{ msg }}</div>
+				<input type="submit" value="注册">
+			</form>
+	</div>
+    
+</body>
+
+</html>
