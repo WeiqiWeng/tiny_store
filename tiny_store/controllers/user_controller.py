@@ -1,14 +1,12 @@
 from tiny_store import tiny_store_app
-from tiny_store.models import UserModel
+from tiny_store.models import UserModel, ProductModel
 
-from .constants import ADMIN_USERTYPE, DEFAULT_USERTYPE, DB_CONFIG_KEYS, MIN_PASSWORD_LENGTH
+from .constants import ADMIN_USERTYPE, DEFAULT_USERTYPE, DB_CONFIG_KEYS, MIN_PASSWORD_LENGTH, DB_CONFIG
 
 from flask import request, render_template, flash, abort, url_for, redirect, session, Flask, g
 
 import re
 
-
-DB_CONFIG = {key: tiny_store_app.config[key] for key in DB_CONFIG_KEYS}
 
 @tiny_store_app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,9 +23,14 @@ def login():
 
             if account_info and account_info.get('id', None) is not None:
                 session['logged_in'] = True
-                session['id'] = account_info['id']
+                session['user_id'] = account_info['id']
                 session['username'] = account_info['username']
                 session['usertype'] = account_info['usertype']
+
+                with ProductModel(DB_CONFIG) as product_model:
+                    default_products = product_model.get_default_products()
+                
+                session['default_products'] = default_products
                 
                 return redirect(url_for('dashboard'))                   
             else:
@@ -40,9 +43,10 @@ def dashboard():
 
     if 'logged_in' in session and session['logged_in']:
         if session['usertype'] == ADMIN_USERTYPE:
-            return render_template('user/admin_dash_board.html', username=session['username'])
+            return render_template('admin_dash_board.html', username=session['username'])            
         elif session['usertype'] == DEFAULT_USERTYPE:
-            return render_template('user/user_dash_board.html', username=session['username'])
+            return redirect(url_for('product'))
+            
 
     return redirect(url_for('login'))
 
@@ -72,19 +76,19 @@ def register():
 
             if (not username) or (not password) or (not email):
                 msg = '请输入用户名、密码和邮箱'
-                return render_template('user/register.html', msg=msg)              
+                return render_template('register.html', msg=msg)              
 
             if not check_email_address(email):
                 msg = '无效邮箱'
-                return render_template('user/register.html', msg=msg)
+                return render_template('register.html', msg=msg)
 
             if not check_username(username):
                 msg = '用户名仅可包含字母和数字'
-                return render_template('user/register.html', msg=msg)
+                return render_template('register.html', msg=msg)
 
             if not check_password_length(password):
                 msg = '密码至少6位'
-                return render_template('user/register.html', msg=msg)                  
+                return render_template('register.html', msg=msg)                  
 
             user_model = UserModel(DB_CONFIG)
             duplication = user_model.check_duplicated_username(username)
@@ -97,11 +101,11 @@ def register():
                     return redirect(url_for('dashboard'))
                 else:
                     msg = '注册失败，请重试'
-                    return render_template('user/register.html', msg=msg)  
+                    return render_template('register.html', msg=msg)  
         else:
             msg = '请输入用户名、密码和邮箱'
                 
-    return render_template('user/register.html', msg=msg)
+    return render_template('register.html', msg=msg)
 
 @tiny_store_app.route('/logout', methods=['GET'])
 def logout():

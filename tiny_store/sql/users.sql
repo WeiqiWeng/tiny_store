@@ -23,5 +23,19 @@ SELECT uuid();
 
 INSERT INTO users (id, username, password, email, usertype) VALUES ('d491d8d0-e2f3-11ea-bd67-4a8ad69052e6', 'testuser', 'testuser', 'testuser@tinystore.com', 0);
 
-
 INSERT INTO users (id, username, password, email, usertype) VALUES ((SELECT uuid()), 'aaa', 'aaa', 'root@tinystore.com', 0);
+
+DROP TABLE IF EXISTS userIdToProductGroupIdMappings;
+
+CREATE TABLE IF NOT EXISTS userIdToProductGroupIdMappings (
+	userId varchar(36) NOT NULL,
+  	productGroupId INT unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+SELECT * FROM userIdToProductGroupIdMappings;
+
+INSERT INTO userIdToProductGroupIdMappings (userId, productGroupId) VALUES ('d491d8d0-e2f3-11ea-bd67-4a8ad69052e6', 0);
+
+INSERT INTO userIdToProductGroupIdMappings (userId, productGroupId) VALUES ('d491d8d0-e2f3-11ea-bd67-4a8ad69052e6', 1);

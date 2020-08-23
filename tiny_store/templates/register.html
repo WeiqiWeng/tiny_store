@@ -4,10 +4,10 @@
 	<div class="login">
 			<h1>账户</h1>
 			<div class="links">
-				<a href="{{ url_for('login') }}" class="active">登录</a>
-				<a href="{{ url_for('register') }}">注册</a>
+				<a href="{{ url_for('login') }}">登录</a>
+				<a href="{{ url_for('register') }}" class="active">注册</a>
 			</div>
-			<form action="{{ url_for('login') }}" method="post">
+			<form action="{{ url_for('register') }}" method="post">
 				<label for="username">
 					<i class="fas fa-user"></i>
 				</label>
@@ -16,8 +16,12 @@
 					<i class="fas fa-lock"></i>
 				</label>
 				<input type="password" name="password" placeholder="密码" id="password" required>
+				<label for="email">
+					<i class="fas fa-envelope"></i>
+				</label>
+				<input type="text" name="email" placeholder="邮箱" id="email" required>
 				<div class="msg">{{ msg }}</div>
-				<input type="submit" value="登录">
+				<input type="submit" value="注册">
 			</form>
 	</div>
 {% endblock %}

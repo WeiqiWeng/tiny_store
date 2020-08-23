@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block logout %}
+	<a href="{{ url_for('logout') }}"><i class="fas fa-door-open"></i>退出</a>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="headline"><h1>默认</h1></div>
+		
+		{% for product_row in default_products %}
+			<div class="row">
+				{% for product in product_row %}
+					<div class="col-md-4">
+						<div class="product-grid">
+							<img src="{{ product.imageURL }}" width=250 height=250>
+							{{ product.productName }} - {{ product.manufacturer }}	
+						</div>						
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="container">
+		<div class="headline"><h1>推荐</h1></div>		
+		{% for product_row in personalized_products %}
+			<div class="row">
+				{% for product in product_row %}
+					<div class="col-md-4">
+						<div class="product-grid">
+							{{ product.productName }} - {{ product.manufacturer }}	
+						</div>							
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

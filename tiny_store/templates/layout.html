@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 
-    <link href="{{ url_for('static', filename='dash_board.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -25,16 +25,14 @@
 	           </div>
 	           <div class="col-md-8"></div>
 	           <div class="col-md-2">
-	           	    <a href="{{ url_for('logout') }}"><i class="fas fa-door-open"></i>退出</a>
-	           </div>			           
+	           		{% block logout %}{% endblock %}
+	           </div>		           
 	        </div>
 	     </div>
 	</div>
 
-	<div class="container">
-		<h1>Dashboard</h1>
-	</div>
-    
+	{% block content %}{% endblock %}
+	    
 </body>
 
 </html>
