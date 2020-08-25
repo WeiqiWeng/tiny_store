@@ -23,6 +23,22 @@ INSERT INTO products (productName, manufacturer, price, imageURL) VALUES ('textb
 
 SELECT * FROM products;
 
+DROP TABLE IF EXISTS productGroups;
+
+CREATE TABLE IF NOT EXISTS productGroups (
+	productGroupId INT unsigned NOT NULL AUTO_INCREMENT,
+  	description VARCHAR(100) NOT NULL,
+    PRIMARY KEY (productGroupId)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO productGroups (description) VALUES ('默认组别');
+
+INSERT INTO productGroups (description) VALUES ('测试组别');
+
+SELECT * FROM productGroups;
+
+DELETE FROM productGroups WHERE productGroupId = 4;
+
 DROP TABLE IF EXISTS groupIdToProductIdMappings;
 
 CREATE TABLE IF NOT EXISTS groupIdToProductIdMappings (
@@ -32,13 +48,13 @@ CREATE TABLE IF NOT EXISTS groupIdToProductIdMappings (
 
 SELECT * FROM groupIdToProductIdMappings;
 
-INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (0, 1);
-INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (0, 2);
-INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (0, 4);
-
-INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (1, 3);
-INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (1, 4);
 INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (1, 1);
+INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (1, 2);
+INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (1, 4);
+
+INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (2, 3);
+INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (2, 4);
+INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (2, 1);
 
 DELETE FROM groupIdToProductIdMappings WHERE productGroupId = 1;
 

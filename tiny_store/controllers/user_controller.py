@@ -11,7 +11,7 @@ import re
 @tiny_store_app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    msg = ' '
+    msg = ''
 
     if request.method == 'POST':
         if 'username' in request.form and 'password' in request.form:
@@ -33,8 +33,11 @@ def login():
                 session['default_products'] = default_products
                 
                 return redirect(url_for('dashboard'))                   
-            else:
-                msg = '用户名/密码有误'                
+            
+        msg = '用户名/密码有误'
+
+    elif request.method == 'GET':
+        return redirect(url_for('dashboard'))
 
     return render_template('index.html', msg=msg)
 
@@ -43,12 +46,11 @@ def dashboard():
 
     if 'logged_in' in session and session['logged_in']:
         if session['usertype'] == ADMIN_USERTYPE:
-            return render_template('admin_dash_board.html', username=session['username'])            
+            return redirect(url_for('admin'))                        
         elif session['usertype'] == DEFAULT_USERTYPE:
             return redirect(url_for('product'))
             
-
-    return redirect(url_for('login'))
+    return redirect(url_for('land'))
 
 def check_email_address(email_string):
 
@@ -66,7 +68,7 @@ def check_password_length(password):
 @tiny_store_app.route('/register', methods=['GET', 'POST'])
 def register():
 
-    msg = ' '
+    msg = ''
 
     if request.method == 'POST':
         if 'username' in request.form and 'password' in request.form and 'email' in request.form:
@@ -104,18 +106,16 @@ def register():
                     return render_template('register.html', msg=msg)  
         else:
             msg = '请输入用户名、密码和邮箱'
-                
-    return render_template('register.html', msg=msg)
+
+    elif request.method == 'GET':
+            return render_template('register.html', msg=msg)
 
 @tiny_store_app.route('/logout', methods=['GET'])
 def logout():
     
-    session.pop('logged_in', None)
-    session.pop('id', None)
-    session.pop('username', None)
-    session.pop('usertype', None)
+    session.clear()
    
-    return redirect(url_for('login'))
+    return redirect(url_for('land'))
 
 
                 

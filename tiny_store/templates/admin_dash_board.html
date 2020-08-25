@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block logout %}
+	<a href="{{ url_for('logout') }}"><i class="fas fa-door-open"></i>退出</a>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="headline"><h1>组别管理</h1></div>
+		<form action="{{ url_for('add_product_group') }}" method="post">
+			<div class="row">
+				<div class="col-md-10">
+					<label for="group_description">组别注释</label>
+					<input class="form-control" type="text" name="group_description" placeholder="为组别添加注释" id="group_description" required>
+				</div>
+				<div class="col-md-2">
+					<label for="submit_button">&nbsp;{{ add_product_group_msg }}</label>
+					<input class="btn btn-primary btn-block" id="submit_button" type="submit" value="添加"></input>
+				</div>
+			</div>
+		</form>
+
+		<div class="headline"><h1>产品 — 组别映射</h1></div>
+		<form action="{{ url_for('add_product_to_group') }}" method="post">
+			<div class="row">
+				<div class="col-md-5">
+					<label for="product_id">产品</label>
+					<select class="custom-select" id="product_id" name="product_id">
+						{% for product in all_products %}
+							<option value="{{ product.productId }}">{{product.productId}} - {{product.productName}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-md-5">
+					<label for="group_id">组别</label>
+					<select class="custom-select" id="group_id" name="group_id">
+						{% for group in all_groups %}
+							<option value="{{ group.productGroupId }}">{{group.productGroupId}} - {{group.description}}</option>
+						{% endfor %}						
+					</select>
+				</div>
+				<div class="col-md-2">
+					<label for="submit_button">&nbsp;{{ add_product_to_group_msg }}</label>
+					<input class="btn btn-primary btn-block" id="submit_button" type="submit" value="添加"></input>
+				</div>
+			</div>
+		</form>
+
+		<div class="headline"><h1>用户 — 组别映射</h1></div>
+		<form action="{{ url_for('add_user_to_group') }}" method="post">
+			<div class="row">
+				<div class="col-md-5">
+					<label for="user_id">用户</label>
+					<select class="custom-select" id="user_id" name="user_id">
+						{% for user in all_users %}
+							<option value="{{ user.id }}">{{user.username}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-md-5">
+					<label for="group_id">组别</label>
+					<select class="custom-select" id="group_id" name="group_id">
+						{% for group in all_groups %}
+							<option value="{{ group.productGroupId }}">{{group.productGroupId}} - {{group.description}}</option>
+						{% endfor %}						
+					</select>
+				</div>
+				<div class="col-md-2">
+					<label for="submit_button">&nbsp;{{ add_user_to_group_msg }}</label>
+					<input class="btn btn-primary btn-block" id="submit_button" type="submit" value="添加"></input>
+				</div>
+			</div>
+		</form>
+
+
+
+		
+		
+	</div>	
+{% endblock %}

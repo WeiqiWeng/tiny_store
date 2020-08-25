@@ -15,4 +15,4 @@ tiny_store_app.secret_key = app_config['FLASK_APP_KEY']
 tiny_store_app = config_helper.set_config_to_app(tiny_store_app, db_config)
 
 
-from tiny_store.controllers import homepage_controller, user_controller, product_controller
+from tiny_store.controllers import homepage_controller, user_controller, product_controller, admin_controller

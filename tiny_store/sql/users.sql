@@ -36,6 +36,6 @@ CREATE TABLE IF NOT EXISTS userIdToProductGroupIdMappings (
 
 SELECT * FROM userIdToProductGroupIdMappings;
 
-INSERT INTO userIdToProductGroupIdMappings (userId, productGroupId) VALUES ('d491d8d0-e2f3-11ea-bd67-4a8ad69052e6', 0);
-
 INSERT INTO userIdToProductGroupIdMappings (userId, productGroupId) VALUES ('d491d8d0-e2f3-11ea-bd67-4a8ad69052e6', 1);
+
+INSERT INTO userIdToProductGroupIdMappings (userId, productGroupId) VALUES ('d491d8d0-e2f3-11ea-bd67-4a8ad69052e6', 2);

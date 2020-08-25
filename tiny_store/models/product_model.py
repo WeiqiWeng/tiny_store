@@ -3,7 +3,7 @@ from .base_model import BaseModel
 
 class ProductModel(BaseModel):
 
-	DEFAULT_PRODUCT_GROUP_ID = 0
+	DEFAULT_PRODUCT_GROUP_ID = 1
 
 	def _get_products_by_group_id(self, group_id):
 
@@ -20,7 +20,7 @@ class ProductModel(BaseModel):
 			ON
 				a.productId = b.productId
 			WHERE
-				a.productGroupId = %d
+				a.productGroupId = %d;
 		"""
 
 		products = self.query_many(query % group_id)
@@ -51,7 +51,7 @@ class ProductModel(BaseModel):
 				b.productId = c.productId
 			WHERE
 				a.userId = '%s' AND
-				a.productGroupId != %d
+				a.productGroupId != %d;
 		"""
 
 		products = self.query_many(query % (user_id, self.DEFAULT_PRODUCT_GROUP_ID))

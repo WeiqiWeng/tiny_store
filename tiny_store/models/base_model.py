@@ -48,6 +48,17 @@ class BaseModel(object):
 		self.cursor.close()
 		self.mysql_connection.close()
 
+	def execute_one_with_boolean_return(self, query):
+
+		success = True
+		try:
+			self.execute_one(query)
+		except Exception as e:
+			print(e)
+			success = False
+
+		return success
+
 	def __enter__(self):
 		return self
 

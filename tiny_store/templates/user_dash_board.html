@@ -29,6 +29,7 @@
 				{% for product in product_row %}
 					<div class="col-md-4">
 						<div class="product-grid">
+							<img src="{{ product.imageURL }}" width=250 height=250>
 							{{ product.productName }} - {{ product.manufacturer }}	
 						</div>							
 					</div>

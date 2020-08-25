@@ -17,12 +17,5 @@ class UserModel(BaseModel):
 
 	def register_ordinary_user(self, username, password, email):
 
-		success = True
-
-		try:
-			self.execute_one("INSERT INTO users (id, username, password, email, usertype) VALUES ((SELECT uuid()), '%s', '%s', '%s', 0);" % (username, password, email))			
-		except Exception as e:
-			print(e)
-			success = False
-
-		return success	
+		query = "INSERT INTO users (id, username, password, email, usertype) VALUES ((SELECT uuid()), '%s', '%s', '%s', 0);"
+		return self.execute_one_with_boolean_return(query % (username, password, email))
