@@ -59,22 +59,22 @@ INSERT INTO groupIdToProductIdMappings (productGroupId, productId) VALUES (2, 1)
 DELETE FROM groupIdToProductIdMappings WHERE productGroupId = 1;
 
 
-SELECT 
+select
 				c.productName, 
 				c.manufacturer, 
 				c.price, 
 				c.imageURL 
 			FROM
-				userIdToProductGroupIdMappings a
+				userIdToProductGroupIdMappings a 
 			INNER JOIN	
-				groupIdToProductIdMappings b
+				groupIdToProductIdMappings b groupid productid 
 			ON
 				a.productGroupId = b.productGroupId
 			INNER JOIN
-				products c
+				products c 
 			ON
 				b.productId = c.productId
 			WHERE
 				a.userId = 'd491d8d0-e2f3-11ea-bd67-4a8ad69052e6' AND
-                a.productGroupId != 0
+                a.productGroupId != 1
 

@@ -20,7 +20,7 @@ def login():
 
             with UserModel(DB_CONFIG) as user_model:
                 account_info = user_model.get_login_account_info(username, password)
-
+            
             if account_info and account_info.get('id', None) is not None:
                 session['logged_in'] = True
                 session['user_id'] = account_info['id']
